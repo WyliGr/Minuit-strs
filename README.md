@@ -8,7 +8,7 @@ A modern web application that displays current movie showtimes across multiple c
 - **Interactive filtering**: Filter by cinema, VOST only, or hide past showtimes
 - **Search functionality**: Quickly find movies by title
 - **Responsive design**: Works on mobile and desktop devices
-- **Live clock** ⏰: Shows current time and automatically updates showtime status
+- **Live clock**: Shows current time and automatically updates showtime status
 
 ## Cinemas Covered
 
@@ -109,6 +109,17 @@ To use your own backend, update the API URL in:
 ```
 frontend/src/services/api.ts
 ```
+
+## Why This Project?
+
+While individual cinema websites and apps exist (UGC, Vox, etc.), this project offers unique advantages:
+
+- **Multi-cinema view**: See showtimes from all major Strasbourg cinemas in one place
+- **Unified interface**: Consistent experience across different cinema chains
+- **Advanced filtering**: Filter by VOST, time, or specific cinemas simultaneously
+- **No tracking**: Unlike commercial apps, this project respects your privacy
+- **Offline-capable**: Once loaded, the interface works without constant API calls
+- **Open data**: Transparent data structure and API access
 
 ## Data Structure
 
