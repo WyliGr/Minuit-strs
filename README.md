@@ -1,215 +1,67 @@
 # Minuit.strs
-> Minuit at Strasbourg
+> Minuit at Strasbourg, after a good movie at the theater
 
-A modern web application that displays current movie showtimes across multiple cinemas in Strasbourg, France.
+**Minuit** is a aggregator of movie schedules for every Strasbourg Theater :
+Le Vox, UGC Rivétoile, Le Cosmos, Le Star et Le Star Saint-Exupéry 
 
-## Features
+Beacause there is a lot of différents theaters, there is a lot of movies scheduled everyday, and always the on that fits your planning. But the problem was, 5 theaters means 5 schedules, 5 differents website, 5 ways to find the schedule.
 
-- **Real-time showtimes**: Fetches and displays current movie sessions from 5 Strasbourg cinemas
-- **Interactive filtering**: Filter by cinema, VOST only, or hide past showtimes
-- **Search functionality**: Quickly find movies by title
-- **Responsive design**: Works on mobile and desktop devices
-- **Live clock**: Shows current time and automatically updates showtime status
+**Minuit** makes it easy, one schedule to rule them all. 
 
-## Cinemas Covered
+> [!NOTE]
+> You can find my instance of minuit running there : 
+> https://cinema.wyliam.fr
 
-- UGC Ciné Cité
-- Le Cosmos
-- Vox
-- Star
-- Star St-Exupéry
+### How it's made ?
+This project is forked from another project of mine, the *Strasbourg Theater Movie Parser*. An n8n workflow that typically does the same but the data was sent by discord. 
 
-## Technology Stack
-
-### Frontend
-- **Framework**: Astro (static site generator)
-- **UI**: Vue.js components
-- **Styling**: Tailwind CSS
-- **Deployment**: Docker with Nginx
-
-### Backend
-- **Data Source**: Allociné (via n8n workflow)
-- **API**: Custom n8n workflow that scrapes and structures cinema data
-- **Format**: JSON API endpoint
-
-## Installation & Running
-
-### Prerequisites
+Today, the backend is still an n8n workflow with Webhooks usage. But with  real frontend devlopped with Astro, Vue and TailwindCSS.
+### How to deploy your own instance ?
+You will need two things :
+- An n8n Server
 - Docker
-- Docker Compose
 
-### Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/WyliGr/Minuit.git
-cd Minuit
-
-# Build and start the application
-docker-compose up -d --build
-
-# Access the application
-open http://localhost:3000
-```
-
-### Development Mode
+**0. Clone the github repo**
+Like every github project, clone the repo on your computer.
 
 ```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Access at http://localhost:3000
+git clone git@github.com:WyliGr/Minuit-strs.git
 ```
 
-## Docker Setup
+**1. Setup the Backend**
+On your n8n server, import the file ```n8n-backend.json``` and setup the webhook URL. Keep this url it's going to be useful later.
 
-The application uses a multi-stage Docker build:
+**2. Setup the frontend (For Linux)**
+On the **Minuit-strs** folder, open your favorite IDE like VSCode and modifiy the file ```./frontend/src/pages/index.astro``` and replace my API URL by yours that you saved from the n8n step.
 
-1. **Build stage**: Uses Node.js to compile the Astro application
-2. **Production stage**: Uses Nginx to serve static files efficiently
-
-### Docker Commands
-
+Then save and run a terminal to type :
 ```bash
-# Build and start
-docker-compose up -d --build
-
-# Stop the application
-docker-compose down
-
-# View logs
-docker-compose logs -f
-
-# Rebuild and restart
-docker-compose down && docker-compose up -d --build
+docker compose up --build -d
 ```
 
-## Backend Configuration
+Mac and windows users, figure it on your own :)
 
-The application relies on a separate n8n workflow that:
-1. Fetches daily showtime data from Allociné
-2. Processes and structures the data
-3. Provides a JSON API endpoint
+**3. Access the UI**
+You can now access the Web UI at : 
+- http://*YOUR-IP*:3000
+- http://localhost:3000
 
-The n8n workflow configuration is available in `n8n-backend.json`.
+### More Informations
 
-## API Endpoint
-
-The frontend expects the backend API to be available at:
-```
-http://n8n.wyligr.fr/webhook/api/theater
-```
-
-To use your own backend, update the API URL in:
-```
-frontend/src/services/api.ts
-```
-
-## Why This Project?
-
-While individual cinema websites and apps exist (UGC, Vox, etc.), this project offers unique advantages:
-
-- **Multi-cinema view**: See showtimes from all major Strasbourg cinemas in one place
-- **Unified interface**: Consistent experience across different cinema chains
-- **Advanced filtering**: Filter by VOST, time, or specific cinemas simultaneously
-- **No tracking**: Unlike commercial apps, this project respects your privacy
-- **Offline-capable**: Once loaded, the interface works without constant API calls
-- **Open data**: Transparent data structure and API access
-
-## Data Structure
-
-The API returns an array of movies with the following structure:
-
-```typescript
-interface Movie {
-  titre: string;           // Movie title
-  duree: string | number; // Duration (minutes or formatted string)
-  seances: Record<string, Array<{
-    time: string;          // Showtime (HH:MM)
-    isVost: boolean;       // Whether the show is in original version
-    isPreview: boolean;    // Whether it's a preview screening
-  }>>;                    // Keyed by cinema name
-}
-```
-
-## Environment Variables
-
-No environment variables are required for the frontend application.
-
-## Deployment
-
-### Coolify
-
-This project is configured for deployment with Coolify. The application will automatically rebuild and redeploy when changes are pushed to the main branch.
-
-### Manual Deployment
-
-For manual deployment to any Docker-compatible host:
-
-```bash
-# Copy files to server
-scp -r . user@server:/path/to/app
-
-# SSH into server
-ssh user@server
-
-# Navigate to app directory
-cd /path/to/app
-
-# Start the application
-docker-compose up -d --build
-```
-
-## Project Structure
-
+**Folder Structure**
 ```
 /
-├── frontend/              # Astro frontend application
-│   ├── src/               # Source files
-│   │   ├── components/    # Vue components
-│   │   ├── pages/         # Astro pages
-│   │   ├── services/      # API services
-│   │   ├── styles/        # CSS files
-│   │   └── utils/         # Utility functions
-│   └── public/            # Static assets
-├── n8n-backend.json       # n8n workflow configuration
-├── Dockerfile             # Multi-stage Docker build
-├── docker-compose.yml     # Docker Compose configuration
-└── README.md              # Project documentation
+├── frontend/ # Astro frontend application
+│ ├── src/ # Source files
+│ │ ├── components/ # Vue components
+│ │ ├── pages/ # Astro pages
+│ │ ├── services/ # API services
+│ │ ├── styles/ # CSS files
+│ │ └── utils/ # Utility functions
+│ └── public/ # Static assets
+├── n8n-backend.json # n8n workflow configuration
+├── Dockerfile # Multi-stage Docker build
+├── docker-compose.yml # Docker Compose configuration
+└── README.md # Project documentation
 ```
 
-## Troubleshooting
-
-### Build Issues
-
-If you encounter build errors:
-
-```bash
-# Clean and rebuild
-rm -rf frontend/node_modules frontend/dist
-cd frontend
-npm install
-cd ..
-docker-compose up -d --build
-```
-
-### API Connection Issues
-
-If the application shows API errors:
-1. Verify the backend API is running
-2. Check CORS headers on the API endpoint
-3. Verify network connectivity to the API URL
-
-## License
-
-This project is licensed under the "Good luck with that" license. Use at your own risk.
-
----
-
-**Strasbourg Cinema Movie Parser** - Your guide to Strasbourg's cinema scene! 🍿
