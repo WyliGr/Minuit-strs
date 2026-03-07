@@ -1,4 +1,0 @@
-# Docker ignore file to force rebuild
-node_modules
-.git
-.DS_Store
