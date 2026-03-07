@@ -1,4 +1,5 @@
-# Strasbourg Cinema Movie Parser 🎬
+# Minuit.strs
+> Minuit at Strasbourg
 
 A modern web application that displays current movie showtimes across multiple cinemas in Strasbourg, France.
 
