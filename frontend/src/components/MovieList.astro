@@ -24,44 +24,44 @@ const { movies, activeCinemas, currentMinutes, filterVost, filterPast } = Astro.
   {movies.map((film) => (
      <article class="movie-article group py-8 border-b border-neutral-900 first:pt-0 last:border-0 flex flex-col gap-6 hover:bg-neutral-900/20 transition-colors -mx-4 px-4 sm:mx-0 sm:px-0" data-title={film.titre.toLowerCase()}>
        
-      <div class="flex flex-col lg:flex-row gap-6 w-full">
-         <div class="lg:w-1/2 flex flex-col sm:flex-row gap-4">
+      <div class="flex flex-col gap-4">
+         <div class="flex flex-col sm:flex-row gap-4 items-start">
            {film.affiche ? (
-             <img src={film.affiche} alt={`Affiche de ${film.titre}`} class="w-full sm:w-1/3 max-w-[120px] h-auto rounded-md object-cover aspect-2/3" loading="lazy">
+             <img src={film.affiche} alt={`Affiche de ${film.titre}`} class="w-full sm:w-auto max-w-[100px] h-auto rounded-md object-cover aspect-[2/3] flex-shrink-0" loading="lazy">
            ) : (
-             <div class="w-full sm:w-1/3 max-w-[120px] h-[180px] bg-neutral-800 rounded-md flex items-center justify-center">
+             <div class="w-full sm:w-auto max-w-[100px] h-[150px] bg-neutral-800 rounded-md flex items-center justify-center flex-shrink-0">
                <span class="text-neutral-600 text-xs text-center px-2">Pas d'affiche disponible</span>
              </div>
            )}
            
            <div class="flex-1 min-w-0">
              <h2 class="text-lg font-bold text-white leading-tight tracking-tight truncate">{film.titre}</h2>
-             <p class="text-neutral-500 text-sm mt-1.5 font-medium flex items-center gap-2">
+             <p class="text-neutral-500 text-sm mt-1 font-medium flex items-center gap-2">
                <span>{formatDuration(film.duree)}</span>
              </p>
            </div>
          </div>
 
-         <div class="lg:w-1/2 space-y-4">
+         <div class="space-y-3">
            {Object.entries(film.seances).map(([cinema, seances]) => (
-             <div class="cinema-group flex flex-col sm:flex-row gap-2 sm:gap-6 items-start" data-cinema={cinema}>
-               <h3 class="text-sm font-semibold text-neutral-400 w-24 shrink-0 sm:pt-1">
+             <div class="cinema-group flex flex-col gap-2 items-start" data-cinema={cinema}>
+               <h3 class="text-sm font-semibold text-neutral-400 w-full mb-1">
                  {cinema}
                </h3>
                
-               <div class="flex flex-wrap gap-2">
+               <div class="flex flex-wrap gap-1.5">
                  {seances.map((seance) => {
                    const [h, m] = seance.time.split(':').map(Number);
                    const isPast = (h * 60 + m) < currentMinutes;
                    const shouldShow = (!filterVost || seance.isVost) && (!filterPast || !isPast) && activeCinemas.has(cinema);
                    
                    return shouldShow ? (
-                     <span class={`seance-badge inline-flex items-baseline gap-1.5 px-2.5 py-1 rounded-md border text-sm transition-all bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-neutral-600 hover:text-white cursor-default ${isPast ? 'is-past' : ''}`} 
+                     <span class={`seance-badge inline-flex items-baseline gap-1 px-2 py-1 rounded-md border text-xs transition-all bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-neutral-600 hover:text-white cursor-default ${isPast ? 'is-past' : ''}`} 
                            data-time={seance.time} 
                            data-vost={seance.isVost ? "true" : "false"}>
                        <span class="time-text font-medium">{seance.time}</span>
                        {seance.isVost && (
-                         <span class="vost-tag text-[0.65rem] font-bold text-neutral-500 tracking-wide uppercase">VOST</span>
+                         <span class="vost-tag text-[0.6rem] font-bold text-neutral-500 tracking-wide uppercase">VOST</span>
                        )}
                      </span>
                    ) : null;
