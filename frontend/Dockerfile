@@ -19,4 +19,4 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 RUN npm install -g http-server
 EXPOSE 4321
-CMD ["http-server", "dist", "-p", "4321", "--cors"
+CMD ["http-server", "dist", "-p", "4321", "--cors"]
