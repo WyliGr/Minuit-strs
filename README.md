@@ -196,15 +196,7 @@ If the application shows API errors:
 
 ## License
 
-This project is open source and available under the MIT License.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## Support
-
-For questions or issues, please open a GitHub issue.
+This project is licensed under the "Good luck with that" license. Use at your own risk.
 
 ---
 
