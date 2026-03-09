@@ -48,7 +48,7 @@ const { movies, activeCinemas, currentMinutes, filterVost, filterPast } = Astro.
             </h3>
             
             <div class="flex flex-wrap gap-2">
-              {seances.map((seance) => {
+              {(seances as any[]).map((seance: any) => {
                 const [h, m] = seance.time.split(':').map(Number);
                 const isPast = (h * 60 + m) < currentMinutes;
                 const shouldShow = (!filterVost || seance.isVost) && (!filterPast || !isPast) && activeCinemas.has(cinema);
