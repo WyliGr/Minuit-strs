@@ -123,6 +123,10 @@ const availableCinemas = ['UGC', 'Vox', 'Le Cosmos', 'Star', 'Star SE'];
         </div>
     </footer>
      
+    <button id="scroll-to-top" class="fixed bottom-8 right-8 bg-neutral-800 text-white p-3 rounded-full shadow-lg hover:bg-neutral-700 transition-all opacity-0 pointer-events-none z-40">
+        ↑
+    </button>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
@@ -132,6 +136,7 @@ const availableCinemas = ['UGC', 'Vox', 'Le Cosmos', 'Star', 'Star SE'];
             const clockEl = document.getElementById('clock') as HTMLElement | null;
             const cinemaBtns = document.querySelectorAll<HTMLButtonElement>('.cinema-btn');
             const emptyState = document.getElementById('empty-state') as HTMLElement | null;
+            const scrollToTopBtn = document.getElementById('scroll-to-top') as HTMLElement | null;
               
             if (!searchInput || !filterVost || !filterPast || !resetBtn || !clockEl || !emptyState) return;
   
@@ -263,6 +268,20 @@ const availableCinemas = ['UGC', 'Vox', 'Le Cosmos', 'Star', 'Star SE'];
   
             updateClock();
             setInterval(updateClock, 60000);
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn?.classList.remove('opacity-0', 'pointer-events-none');
+                    scrollToTopBtn?.classList.add('opacity-100');
+                } else {
+                    scrollToTopBtn?.classList.add('opacity-0', 'pointer-events-none');
+                    scrollToTopBtn?.classList.remove('opacity-100');
+                }
+            });
+
+            scrollToTopBtn?.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         });
     </script>
 </body>
