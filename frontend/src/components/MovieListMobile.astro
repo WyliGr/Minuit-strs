@@ -36,13 +36,13 @@ const { movies, activeCinemas, currentMinutes, filterVost, filterPast } = Astro.
       <article class="movie-article group py-6 border-b border-neutral-900 first:pt-0 last:border-0 flex flex-col gap-4 hover:bg-neutral-900/20 transition-colors -mx-4 px-4 sm:mx-0 sm:px-0" data-title={film.titre.toLowerCase()}>
         <div class="flex flex-col sm:flex-row gap-4">
           <div class="flex gap-4">
-            {film.affiche ? (
-              <img src={film.affiche} alt={`Affiche de ${film.titre}`} class="w-[80px] h-[120px] rounded-md object-cover cursor-pointer poster-image" data-poster={film.affiche} loading="lazy">
-            ) : (
-              <div class="w-[80px] h-[120px] bg-neutral-800 rounded-md flex items-center justify-center">
-                <span class="text-neutral-600 text-xs text-center px-1">Pas d'affiche</span>
-              </div>
-            )}
+             {film.affiche ? (
+               <img src={film.affiche} alt={`Affiche de ${film.titre}`} class="w-[80px] h-[120px] rounded-md object-cover cursor-pointer poster-image" data-poster={film.affiche} loading="lazy" decoding="async">
+             ) : (
+               <div class="w-[80px] h-[120px] bg-neutral-800 rounded-md flex items-center justify-center">
+                 <span class="text-neutral-600 text-xs text-center px-1">Pas d'affiche</span>
+               </div>
+             )}
             <div class="flex-1">
               <h2 class="text-lg font-bold text-white leading-tight tracking-tight">{film.titre}</h2>
               <p class="text-neutral-500 text-sm mt-1 font-medium">

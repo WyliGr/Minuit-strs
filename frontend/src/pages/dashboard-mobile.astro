@@ -289,7 +289,28 @@ const availableCinemas = ['UGC', 'Vox', 'Le Cosmos', 'Star', 'Star SE'];
                     modal.classList.remove('flex');
                 }
             });
-  
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const movies = document.querySelectorAll('.movie-article');
+                    const currentFocus = document.activeElement;
+                    let currentIndex = -1;
+
+                    movies.forEach((movie, index) => {
+                        if (movie === currentFocus || movie.contains(currentFocus)) {
+                            currentIndex = index;
+                        }
+                    });
+
+                    if (e.key === 'ArrowDown' && currentIndex < movies.length - 1) {
+                        movies[currentIndex + 1].querySelector('h2')?.focus();
+                    } else if (e.key === 'ArrowUp' && currentIndex > 0) {
+                        movies[currentIndex - 1].querySelector('h2')?.focus();
+                    }
+                }
+            });
+
             updateClock();
             setInterval(updateClock, 60000);
         });
